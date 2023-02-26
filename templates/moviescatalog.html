@@ -1,0 +1,123 @@
+{% extends 'navbar.html' %}
+
+{% block content %}
+{% load static %}
+{% load crispy_forms_tags %}
+	<!-- end header -->
+
+	<!-- page title -->
+	<section class="section section--first section--bg" data-bg="img/section/section.jpg">
+		<div class="container">
+			<div class="row">
+				<div class="col-12">
+					<div class="section__wrap">
+						<!-- section title -->
+						<h2 class="section__title">MOVIES</h2>
+						<!-- end section title -->
+
+						<!-- breadcrumb -->
+						
+						<!-- end breadcrumb -->
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- end page title -->
+
+	<!-- filter -->
+	<div class="filter">
+		<div class="container">
+			<div class="row">
+				<div class="col-12">
+					<div class="filter__content">
+							<!-- filter item -->
+							<div class="filter__items">
+							<form action="{% url 'movieFilter' %}" class="filter__items" method="GET">
+							<div class="filter__item" id="filter__genre">
+							
+							{{movie.form.rating|as_crispy_field}}
+							</div>                                               
+							<div class="filter__item" id="filter__rate">
+							{{movie.form.genre|as_crispy_field}}
+							</div>                               
+							<div class="filter__item" id="filter__quality">
+							{{movie.form.industry|as_crispy_field}}
+							</div>
+							<button type="submit" class="form__btn">Apply Filter</button>
+							</form>
+							
+							
+							<!-- end filter item -->
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- end filter -->
+
+	<!-- catalog -->
+	<div class="catalog">
+		<div class="container">
+			<div class="row">
+				<!-- card -->
+				{% for movie in page.object_list %}
+				<div class="col-6 col-sm-4 col-lg-3 col-xl-2">
+					<div class="card">
+						<div class="card__cover">
+							<img src={{movie.poster.url}} alt="">
+							
+						</div>
+						<div class="card__content">
+							<h3 class="card__title"><a href="{% url 'movie' movie.id %}">{{movie.title}}</a></h3>
+							{% for genre in movie.genre.all %}
+							<span class="card__category">
+									<ul>
+										<li><a href="#">{{genre.tag}}</a></li>
+									</ul>
+							</span>
+							{% endfor %}
+							<span class="card__rate"><i class="icon ion-ios-star"></i>{{movie.rating}}</span>
+						</div>
+					</div>
+				</div>
+				{% endfor %}
+				<!-- end card -->
+
+
+				<!-- paginator -->
+				<div class="col-12">
+					<ul class="paginator">
+						<!-- {% if page.has_previous %}
+						<a href="{% url 'movies' %}?page={{ page.previous_page_number}}" class="form__btn">Previous Page</a>                   
+					   
+						{% endif %}
+				   
+						{% if page.has_next %}
+						<a href="{% url 'movies' %}?page={{ page.next_page_number}}" class="form__btn">Load more</a>
+						   
+					 {% endif %} -->
+						<li class="paginator__item paginator__item--prev">
+							<a href="#"><i class="icon ion-ios-arrow-back"></i></a>
+						</li>
+						<li class="paginator__item paginator__item--active"><a href="{% url 'movies' %}?page={{1}}">1</a></li>
+						<li class="paginator__item"><a href="{% url 'movies' %}?page={{2}}">2</a></li>
+						<li class="paginator__item"><a href="{% url 'movies' %}?page={{3}}">3</a></li>
+						<li class="paginator__item"><a href="#">4</a></li>
+						<li class="paginator__item paginator__item--next">
+							<a href="#"><i class="icon ion-ios-arrow-forward"></i></a>
+						</li>
+					</ul>
+				</div>
+				<!-- end paginator -->
+			</div>
+		</div>
+	</div>
+	<!-- end catalog -->
+
+	<!-- expected premiere -->
+	
+	<!-- end expected premiere -->
+
+	<!-- footer -->
+	{% endblock %}
