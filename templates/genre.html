@@ -33,19 +33,20 @@
 					<div class="filter__content">
 							<!-- filter item -->
 							<div class="filter__items">
-							<form action="" class="filter__items">
+							<form action="{% url 'movieFilter' %}" class="filter__items" method="GET">
 							<div class="filter__item" id="filter__genre">
-							{{movie_type.form.rating|as_crispy_field}}
+							
+							{{movie.form.rating|as_crispy_field}}
 							</div>                                               
 							<div class="filter__item" id="filter__rate">
-							{{movie_type.form.genre|as_crispy_field}}
+							{{movie.form.genre|as_crispy_field}}
 							</div>                               
 							<div class="filter__item" id="filter__quality">
-							{{movie_type.form.industry|as_crispy_field}}
+							{{movie.form.industry|as_crispy_field}}
 							</div>
 							<button type="submit" class="form__btn">Apply Filter</button>
 							</form>
-							</div>
+							
 							
 							<!-- end filter item -->
 					</div>
@@ -60,7 +61,7 @@
 		<div class="container">
 			<div class="row">
 				<!-- card -->
-				{% for movie in movie_type.qs%}
+				{% for movie in page.object_list %}
 				<div class="col-6 col-sm-12 col-lg-6">
 					<div class="card card--list">
 						<div class="row">
@@ -103,7 +104,29 @@
 
 
 				<!-- paginator -->
-				
+				<div class="col-12">
+					<ul class="paginator">
+						<!-- {% if page.has_previous %}
+						<a href="{% url 'movies' %}?page={{ page.previous_page_number}}" class="form__btn">Previous Page</a>                   
+					   
+						{% endif %}
+				   
+						{% if page.has_next %}
+						<a href="{% url 'movies' %}?page={{ page.next_page_number}}" class="form__btn">Load more</a>
+						   
+					 {% endif %} -->
+						<li class="paginator__item paginator__item--prev">
+							<a href="#"><i class="icon ion-ios-arrow-back"></i></a>
+						</li>
+						<li class="paginator__item paginator__item--active"><a href="{% url 'movies' %}?page={{1}}">1</a></li>
+						<li class="paginator__item"><a href="{% url 'movies' %}?page={{2}}">2</a></li>
+						<li class="paginator__item"><a href="{% url 'movies' %}?page={{3}}">3</a></li>
+						<li class="paginator__item"><a href="#">4</a></li>
+						<li class="paginator__item paginator__item--next">
+							<a href="#"><i class="icon ion-ios-arrow-forward"></i></a>
+						</li>
+					</ul>
+				</div>
 				<!-- end paginator -->
 			</div>
 		</div>
@@ -115,4 +138,4 @@
 	<!-- end expected premiere -->
 
 	<!-- footer -->
-	{% endblock %}
+	{% endblock %} 

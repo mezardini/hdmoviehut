@@ -42,3 +42,15 @@ def movie_filter(request):
 
     context = {'movies':movies, 'movie_type':movie_type }
     return render(request, 'search_catalog.html', context)
+
+def pay(request):
+    return render(request, 'payment.html')
+
+
+def search(request):
+    movie = Movie.objects.all()
+    if request.method == 'GET':
+        searched = request.GET['searched']
+        topics = Movie.objects.filter(title__contains = searched)
+        return render(request, 'search_results.html', {'searched':searched,  'topics':topics, 'movie':movie})
+    

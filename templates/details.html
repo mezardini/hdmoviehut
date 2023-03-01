@@ -1,10 +1,100 @@
-{% extends 'navbar.html' %}
-
-{% block content %}
 {% load static %}
-	<!-- end header -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+	<!-- Font -->
+	<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600%7CUbuntu:300,400,500,700" rel="stylesheet">
+
+	<!-- CSS -->
+	<link rel="stylesheet" href="{% static 'css/bootstrap-reboot.min.css' %}">
+	<link rel="stylesheet" href="{% static 'css/bootstrap-grid.min.css' %}">
+	<link rel="stylesheet" href="{% static 'css/owl.carousel.min.css' %}">
+	<link rel="stylesheet" href="{% static 'css/jquery.mCustomScrollbar.min.css' %}">
+	<link rel="stylesheet" href="{% static 'css/nouislider.min.css' %}">
+	<link rel="stylesheet" href="{% static 'css/ionicons.min.css' %}">
+	<link rel="stylesheet" href="{% static 'css/plyr.css' %}">
+	<link rel="stylesheet" href="{% static 'css/photoswipe.css' %}">
+	<link rel="stylesheet" href="{% static 'css/default-skin.css' %}">
+	<link rel="stylesheet" href="{% static 'css/main.css' %}">
+
+	<!-- Favicons -->
+	<link rel="icon" type="image/png" href="{% static 'icon/favicon-32x32.png' %}" sizes="32x32">
+	<link rel="apple-touch-icon" href="{% static 'icon/favicon-32x32.png' %}">
+	<link rel="apple-touch-icon" sizes="72x72" href="{% static 'icon/apple-touch-icon-72x72.png' %}">
+	<link rel="apple-touch-icon" sizes="114x114" href="{% static 'icon/apple-touch-icon-114x114.png' %}">
+	<link rel="apple-touch-icon" sizes="144x144" href="{% static 'icon/apple-touch-icon-144x144.png' %}">
+
+	<meta name="description" content="">
+	<meta name="keywords" content="">
+	<meta name="author" content="Dmitry Volkov">
+	<title>HDMOVIEHUT – Free Movies, TV Shows</title>
+
+</head>
+<body class="body">
 	
-	<!-- details -->
+	<!-- header -->
+	<header class="header">
+		<div class="header__wrap">
+			<div class="container">
+				<div class="row">
+					<div class="col-12">
+						<div class="header__content">
+							<!-- header logo -->
+							<a href="index.html" class="header__logo">
+								<img src="{% static 'img/logo.svg' %}" alt="">
+							</a>
+							<!-- end header logo -->
+
+							<!-- header nav -->
+							
+							<!-- end header nav -->
+
+							<!-- header auth -->
+							<div class="header__auth">
+								<form action="{% url 'search' %}" method="get">
+								<div class="header__search-content">
+								<input type="text" name="searched" placeholder="Search for a movie, TV Series that you are looking for">
+								</div>
+								<!-- <button class="header__search-btn" type="button">
+									<i class="icon ion-ios-search"></i>
+								</button> -->
+
+							</form>
+							</div>
+							
+							<!-- end header auth -->
+
+							<!-- header menu btn -->
+							
+							<!-- end header menu btn -->
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- header search -->
+		<form action="#" class="header__search">
+			<div class="container">
+				<div class="row">
+					<div class="col-12">
+						<div class="header__search-content">
+							<input type="text" placeholder="Search for a movie, TV Series that you are looking for">
+
+							<button type="button">search</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</form>
+		<!-- end header search -->
+	</header>
+	<!-- end header -->
+
 	<section class="section details">
 		<div class="container">
 			<div class="row">
@@ -23,7 +113,9 @@
 								<div class="card__cover">
 									<img src={{movies.poster.url}} alt="" width="400px" height="300px">
 								</div>
-								
+								<div class="card__description card__description--details">
+									This is just for exhibition, there is no movie available so DO NOT PAY!
+								</div>
 							</div>
 							<!-- end card cover -->
 
@@ -41,17 +133,16 @@
 									</div>
 
 									<ul class="card__meta">
-										<li><span>Genre:</span> <a href="#">{{movies.genre}}</a>
-										</li>
+										<li><span>Genre:</span>{{movies.genre}}</li>
+										
 										<li><span>Release year:</span> {{movies.release_year}}</li>
-										?
-										<li><span>Country:</span> <a href="#">{{movies.industry}}</a> </li>
+										
+										<li><span>Country:</span> {{movies.industry}}</li>
 									</ul>
 
 									<div class="card__description card__description--details">
 										{{movies.synopsis}}
 									</div>
-									
 								</div>
 							</div>
 							<!-- end card content -->
@@ -75,7 +166,7 @@
 						<track kind="captions" label="Français" srclang="fr" src="https://cdn.plyr.io/static/demo/View_From_A_Blue_Moon_Trailer-HD.fr.vtt">
 
 						<!-- Fallback for browsers that don't support the <video> element -->
-						<a href="{{movies.trailer.url}}" download>Download</a>
+						
 						
 					</video>
 				</div>
@@ -84,7 +175,21 @@
 				<div class="col-12">
 					<div class="details__wrap">
 						<!-- availables -->
-						<a href="{{movies.trailer.url}}" class="form__btn" download>Download</a>
+						<form method='POST' action='https://newwebpay.interswitchng.com/collections/w/pay'>
+							{% csrf_token %}
+							<div class="form-row">
+								
+									<input hidden name='merchant_code' value='MX80958' />
+									<input hidden name='pay_item_id' value='Default_Payable_MX80958' />
+									<input hidden name='site_redirect_url' value='https://twitter.com/ftmezard' /> 
+									<input hidden name='txn_ref' value='0094959694059' />
+									<input hidden name='amount' value='{{movies.price}}' />
+									<input hidden name='currency' value='566' />
+									<!-- <input hidden type='submit' value='Make Payment' />  -->
+									<button type='submit' class="form__btn" >Pay</a>
+									
+						</form>
+						
 						<!-- end availables -->
 
 						<!-- share -->
@@ -92,6 +197,7 @@
 						<!-- end share -->
 					</div>
 				</div>
+				
 			</div>
 		</div>
 		
@@ -253,4 +359,88 @@
 	<!-- end content -->
 
 	<!-- footer -->
-{% endblock %}
+	<!-- footer -->
+	<footer class="footer">
+		<div class="container">
+			<div class="row">
+				<!-- footer list -->
+				<div class="col-12 col-md-3">
+					<h6 class="footer__title">Download Our App</h6>
+					<ul class="footer__app">
+						<li><a href="#"><img src="{% static 'img/Download_on_the_App_Store_Badge.svg' %}" alt=""></a></li>
+						<li><a href="#"><img src="{% static 'img/google-play-badge.png' %}" alt=""></a></li>
+					</ul>
+				</div>
+				<!-- end footer list -->
+
+				<!-- footer list -->
+				<div class="col-6 col-sm-4 col-md-3">
+					<h6 class="footer__title">Resources</h6>
+					<ul class="footer__list">
+						<li><a href="#">About Us</a></li>
+						<li><a href="#">Pricing Plan</a></li>
+						<li><a href="#">Help</a></li>
+					</ul>
+				</div>
+				<!-- end footer list -->
+
+				<!-- footer list -->
+				<div class="col-6 col-sm-4 col-md-3">
+					<h6 class="footer__title">Legal</h6>
+					<ul class="footer__list">
+						<li><a href="#">Terms of Use</a></li>
+						<li><a href="#">Privacy Policy</a></li>
+						<li><a href="#">Security</a></li>
+					</ul>
+				</div>
+				<!-- end footer list -->
+
+				<!-- footer list -->
+				<div class="col-12 col-sm-4 col-md-3">
+					<h6 class="footer__title">Contact</h6>
+					<ul class="footer__list">
+						<li><a href="tel:+18002345678">+1 (800) 234-5678</a></li>
+						<li><a href="mailto:support@moviego.com">support@flixgo.com</a></li>
+					</ul>
+					<ul class="footer__social">
+						<li class="facebook"><a href="#"><i class="icon ion-logo-facebook"></i></a></li>
+						<li class="instagram"><a href="#"><i class="icon ion-logo-instagram"></i></a></li>
+						<li class="twitter"><a href="#"><i class="icon ion-logo-twitter"></i></a></li>
+						<li class="vk"><a href="#"><i class="icon ion-logo-vk"></i></a></li>
+					</ul>
+				</div>
+				<!-- end footer list -->
+
+				<!-- footer copyright -->
+				<div class="col-12">
+					<div class="footer__copyright">
+						<small><a target="_blank" href="https://www.templateshub.net">Templates Hub</a></small>
+
+						<ul>
+							<li><a href="#">Terms of Use</a></li>
+							<li><a href="#">Privacy Policy</a></li>
+						</ul>
+					</div>
+				</div>
+				<!-- end footer copyright -->
+			</div>
+		</div>
+	</footer>
+	<!-- end footer -->
+
+	<!-- JS -->
+	<script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
+	<script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+	<script src="{% static 'js/owl.carousel.min.js' %}"></script>
+	<script src="{% static 'js/jquery.mousewheel.min.js' %}"></script>
+	<script src="{% static 'js/jquery.mCustomScrollbar.min.js' %}"></script>
+	<script src="{% static 'js/wNumb.js' %}"></script>
+	<script src="{% static 'js/nouislider.min.js' %}"></script>
+	<script src="{% static 'js/plyr.min.js' %}"></script>
+	<script src="{% static 'js/jquery.morelines.min.js' %}"></script>
+	<script src="{% static 'js/photoswipe.min.js' %}"></script>
+	<script src="{% static 'js/photoswipe-ui-default.min.js' %}"></script>
+	<script src="{% static 'js/main.js' %}"></script>
+</body>
+
+</html>

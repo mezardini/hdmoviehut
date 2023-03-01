@@ -1,0 +1,35 @@
+{% extends 'navbar.html' %}
+
+{% block content %}
+{% load static %}
+	<!-- end header -->
+	
+	<!-- details -->
+	<section class="section details">
+		<div class="container">
+			<div class="row">
+				
+
+				<form method='post' action=''>
+                    {% csrf_token %}
+                    <div class="form-row">
+                        
+                            <input name='merchant_code' value='MX80958' />
+                            <input name='pay_item_id' value='Default_Payable_MX80958' />
+                            <input name='site_redirect_url' value='https://twitter.com/ftmezard' /> 
+                            <input name='txn_ref' value='0094959694059' />
+                            <input name='amount' value='10000' />
+                            <input name='currency' value='566' />
+                            <input type='submit' value='Make Payment' /> 
+                </form>
+			</div>
+		</div>
+		
+		<!-- end details content -->
+	</section>
+	<!-- end details -->
+
+
+
+	<!-- footer -->
+{% endblock %}

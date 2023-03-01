@@ -55,6 +55,7 @@ class Movie(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     trailer = models.FileField(upload_to='media',  null=True)
     status = models.CharField(max_length=10, choices=Status, null=True)
+    price = models.FloatField(null=True)
 
     class Meta:
         ordering = ['-created']
