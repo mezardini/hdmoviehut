@@ -44,7 +44,7 @@
 					<div class="col-12">
 						<div class="header__content">
 							<!-- header logo -->
-							<a href="index.html" class="header__logo">
+							<a href="{% url 'home' %}" class="header__logo">
 								<img src="{% static 'img/logo.svg' %}" alt="">
 							</a>
 							<!-- end header logo -->
@@ -114,7 +114,7 @@
 									<img src={{movies.poster.url}} alt="" width="400px" height="300px">
 								</div>
 								<div class="card__description card__description--details">
-									This is just for exhibition, there is no movie available so DO NOT PAY!
+									This is just for exhibition, there is no movie available. DO NOT PAY!
 								</div>
 							</div>
 							<!-- end card cover -->
@@ -124,7 +124,7 @@
 								<div class="card__content">
 									
 									<div class="card__wrap">
-										<span class="card__rate"><i class="icon ion-ios-star"></i>{{movies.rating}}</span>
+										<span class="card__rate">{{movies.rating}}</span>
 
 										<ul class="card__list">
 											<li>HD</li>
@@ -186,7 +186,7 @@
 									<input hidden name='amount' value='{{movies.price}}' />
 									<input hidden name='currency' value='566' />
 									<!-- <input hidden type='submit' value='Make Payment' />  -->
-									<button type='submit' class="form__btn" >Pay</a>
+									<button type='submit' class="form__btn" >Pay to Download</a>
 									
 						</form>
 						
@@ -261,52 +261,32 @@
 							<div class="col-12">
 								<div class="reviews">
 									<ul class="reviews__list">
+										{% for comment in comments %}
 										<li class="reviews__item">
 											<div class="reviews__autor">
-												
-												<span class="reviews__name">Best Marvel movie in my opinion</span>
-												<span class="reviews__time">24.08.2018, 17:53 by John Doe</span>
-
-												<span class="reviews__rating"><i class="icon ion-ios-star"></i>8.4</span>
+												<span class="reviews__name">Comment by {{comment.author}}</span>
+												<span class="reviews__time">{{comment.created|timesince}} </span>
+												<span class="reviews__rating">{{comment.rating}}</span>
 											</div>
-											<p class="reviews__text">There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text.</p>
+											<p class="reviews__text">{{comment.text}}.</p>
 										</li>
-
-										<li class="reviews__item">
-											<div class="reviews__autor">
-												
-												<span class="reviews__name">Best Marvel movie in my opinion</span>
-												<span class="reviews__time">24.08.2018, 17:53 by John Doe</span>
-
-												<span class="reviews__rating"><i class="icon ion-ios-star"></i>9.0</span>
-											</div>
-											<p class="reviews__text">There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text.</p>
-										</li>
-
-										<li class="reviews__item">
-											<div class="reviews__autor">
-												
-												<span class="reviews__name">Best Marvel movie in my opinion</span>
-												<span class="reviews__time">24.08.2018, 17:53 by John Doe</span>
-
-												<span class="reviews__rating"><i class="icon ion-ios-star"></i>7.5</span>
-											</div>
-											<p class="reviews__text">There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text.</p>
-										</li>
+										{% endfor %}
+										
 									</ul>
 
-									<form action="#" class="form">
-										<input type="text" class="form__input" placeholder="Title">
-										<textarea class="form__textarea" placeholder="Review"></textarea>
-										<select class="form__input" >
+									<form action="" class="form" method="POST">
+										{% csrf_token %}
+										<input type="text" class="form__input" name="author" placeholder="Name">
+										<textarea class="form__textarea" name="comment" placeholder="Comment"></textarea>
+										<select class="form__input" name="rating" >
 											<option>Choose rating.....</option>
-											<option value="1">Atrocious</option>
-											<option value="2">Meh</option>
-											<option value="3">Mid</option>
-											<option value="4">Decent</option>
-											<option value="5">Rad</option>
+											<option value="Poor">Poor</option>
+											<option value="Meh">Meh</option>
+											<option value="Mid">Mid</option>
+											<option value="Decent">Decent</option>
+											<option value="Rad">Rad</option>
 										  </select>
-										<button type="button" class="form__btn">Send</button>
+										<button type="submit" class="form__btn">Send</button>
 									</form>
 								</div>
 							</div>
@@ -342,9 +322,10 @@
 										<a href="#">{{movie.release_year}}</a>
 										
 									</span>
-									<span class="card__rate"><i class="icon ion-ios-star"></i>{{movie.rating}}</span>
+									<span class="card__rate">{{movie.rating}}</span>
 								</div>
 							</div>
+							<br>
 						</div>
 						{% endfor %}
 						<!-- end card -->

@@ -86,4 +86,4 @@ class Comment(models.Model):
         ordering = ['-created']
 
     def __str__(self):
-        return self.title
+        return self.author

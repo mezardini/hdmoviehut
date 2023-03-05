@@ -17,9 +17,19 @@ def home(request):
 def movie(request, pk):
     movies = Movie.objects.get(id=pk)
     movie = Movie.objects.all
+    comments = movies.comment_set.all()
 
-    context = {'movies':movies, 'movie':movie}
-    return render(request, 'details.html', context,)
+    if request.method == 'POST':
+        comment = Comment.objects.create(
+            author = request.POST['author'],
+            rating = request.POST['rating'],
+            movie = movies,
+            text = request.POST['comment'],
+        )
+        comment.save()
+
+    context = {'movies':movies, 'movie':movie, 'comments':comments}
+    return render(request, 'details.html', context)
 
 def movies(request):
     movies = Movie.objects.filter(status='Released') 
@@ -37,7 +47,7 @@ def movies(request):
     return render(request, 'moviescatalog.html', context)
 
 def movie_filter(request):
-    movies = Movie.objects.filter(status='Released') 
+    movies = Movie.objects.all()
     movie_type = MovieFilter(request.GET, queryset=movies)
 
     context = {'movies':movies, 'movie_type':movie_type }
