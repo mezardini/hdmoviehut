@@ -9,7 +9,7 @@ SECRET_KEY = env('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['moviehut.onrender.com']
 
 ADMIN_MEDIA_PREFIX = '/static/admin/'   
 AWS_ACCESS_KEY_ID = env('AWS_ACCESS_KEY_ID')
