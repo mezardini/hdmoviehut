@@ -31,6 +31,18 @@ def movie(request, pk):
     context = {'movies':movies, 'movie':movie, 'comments':comments}
     return render(request, 'details.html', context)
 
+def genre(request, genre):
+    movies = Movie.objects.filter(status='Released').filter(genre=genre)
+
+    prop_pagi = Paginator(movies, 2 )
+
+    page_num = request.GET.get('page')
+
+    page = prop_pagi.get_page(page_num)
+
+    context = {'movies':movies}
+    return render(request, 'genre.html', context)
+
 def movies(request):
     movies = Movie.objects.filter(status='Released') 
     movie_type = MovieFilter(request.GET, queryset=movies)
@@ -61,6 +73,6 @@ def search(request):
     movie = Movie.objects.all()
     if request.method == 'GET':
         searched = request.GET['searched']
-        topics = Movie.objects.filter(title__contains = searched)
+        topics = Movie.objects.filter(title__icontains = searched)
         return render(request, 'search_results.html', {'searched':searched,  'topics':topics, 'movie':movie})
     

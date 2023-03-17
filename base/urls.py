@@ -5,6 +5,7 @@ from django.conf import settings
 urlpatterns = [
     path('', views.home, name="home"),
     path('movies/', views.movies, name="movies"),
+    path('movies/<str:genre>/', views.genre, name="genre"),
     path('movies/results', views.movie_filter, name="movieFilter"),
     path('movie/<str:pk>/', views.movie, name="movie"),
     path('pay', views.pay, name='payment'),

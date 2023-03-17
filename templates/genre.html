@@ -33,19 +33,7 @@
 					<div class="filter__content">
 							<!-- filter item -->
 							<div class="filter__items">
-							<form action="{% url 'movieFilter' %}" class="filter__items" method="GET">
-							<div class="filter__item" id="filter__genre">
 							
-							{{movie.form.rating|as_crispy_field}}
-							</div>                                               
-							<div class="filter__item" id="filter__rate">
-							{{movie.form.genre|as_crispy_field}}
-							</div>                               
-							<div class="filter__item" id="filter__quality">
-							{{movie.form.industry|as_crispy_field}}
-							</div>
-							<button type="submit" class="form__btn">Apply Filter</button>
-							</form>
 							
 							
 							<!-- end filter item -->
@@ -61,7 +49,7 @@
 		<div class="container">
 			<div class="row">
 				<!-- card -->
-				{% for movie in page.object_list %}
+				{% for movie in movies %}
 				<div class="col-6 col-sm-12 col-lg-6">
 					<div class="card card--list">
 						<div class="row">
@@ -78,7 +66,7 @@
 								<div class="card__content">
 									<h3 class="card__title"><a href="{% url 'movie' movie.id %}">{{movie.title}}</a></h3>
 									<span class="card__category">
-										<a href="#">{{movie.genre}}</a>
+										<a href="{% url 'genre' movie.genre %}">{{movie.genre}}</a>
 										
 									</span>
 
@@ -106,25 +94,15 @@
 				<!-- paginator -->
 				<div class="col-12">
 					<ul class="paginator">
-						<!-- {% if page.has_previous %}
-						<a href="{% url 'movies' %}?page={{ page.previous_page_number}}" class="form__btn">Previous Page</a>                   
-					   
+						
+						{% if page.has_previous %}
+						<li class="paginator__item paginator__item--active"><a href="{% url 'movies' %}?page={{ page.previous_page_number}}"><i class="fa-solid fa-arrow-left"></i></a></li>
 						{% endif %}
-				   
+						
 						{% if page.has_next %}
-						<a href="{% url 'movies' %}?page={{ page.next_page_number}}" class="form__btn">Load more</a>
-						   
-					 {% endif %} -->
-						<li class="paginator__item paginator__item--prev">
-							<a href="#"><i class="icon ion-ios-arrow-back"></i></a>
-						</li>
-						<li class="paginator__item paginator__item--active"><a href="{% url 'movies' %}?page={{1}}">1</a></li>
-						<li class="paginator__item"><a href="{% url 'movies' %}?page={{2}}">2</a></li>
-						<li class="paginator__item"><a href="{% url 'movies' %}?page={{3}}">3</a></li>
-						<li class="paginator__item"><a href="#">4</a></li>
-						<li class="paginator__item paginator__item--next">
-							<a href="#"><i class="icon ion-ios-arrow-forward"></i></a>
-						</li>
+						<li class="paginator__item paginator__item--active"><a href="{% url 'movies' %}?page={{ page.next_page_number}}"><i class="fa-solid fa-arrow-right"></i></a></li>
+						{% endif %}
+						
 					</ul>
 				</div>
 				<!-- end paginator -->
