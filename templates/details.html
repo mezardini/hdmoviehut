@@ -131,7 +131,7 @@
 
 									<ul class="card__meta">
 										<li><span>Genre:</span>{{movies.genre}}</li>
-										
+										<li><span>Price:</span>₦{{movies.price}}</li>
 										<li><span>Release year:</span> {{movies.release_year}}</li>
 										
 										<li><span>Country:</span> {{movies.industry}}</li>
@@ -172,20 +172,7 @@
 				<div class="col-12">
 					<div class="details__wrap">
 						<!-- availables -->
-						<form method='POST' action='https://newwebpay.interswitchng.com/collections/w/pay'>
-							{% csrf_token %}
-							<div class="form-row">
-								
-									<input hidden name='merchant_code' value='MX80958' />
-									<input hidden name='pay_item_id' value='Default_Payable_MX80958' />
-									<input hidden name='site_redirect_url' value='https://twitter.com/ftmezard' /> 
-									<input hidden name='txn_ref' value='0094959694059' />
-									<input hidden name='amount' value='{{movies.price}}' />
-									<input hidden name='currency' value='566' />
-									<!-- <input hidden type='submit' value='Make Payment' />  -->
-									<button type='submit' class="form__btn" >Pay to Download</a>
-									
-						</form>
+						<a href="{% url 'payment' movies.id %}" class="form__btn">Pay to Download</a>
 						
 						<!-- end availables -->
 

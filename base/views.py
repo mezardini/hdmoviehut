@@ -15,9 +15,9 @@ def home(request):
 
 
 def movie(request, pk):
-    movies = Movie.objects.get(id=pk)
-    movie = Movie.objects.all
-    comments = movies.comment_set.all()
+    movie = Movie.objects.get(id=pk)
+    movies = Movie.objects.filter(status='Released') 
+    comments = movie.comment_set.all()
 
     if request.method == 'POST':
         comment = Comment.objects.create(
@@ -28,7 +28,7 @@ def movie(request, pk):
         )
         comment.save()
 
-    context = {'movies':movies, 'movie':movie, 'comments':comments}
+    context = {'movies':movie, 'movie':movies, 'comments':comments}
     return render(request, 'details.html', context)
 
 def genre(request, genre):
@@ -42,6 +42,14 @@ def genre(request, genre):
 
     context = {'movies':movies}
     return render(request, 'genre.html', context)
+
+def payment(request, pk):
+    movie = Movie.objects.get(id=pk)
+    qprice = int(movie.price*100)
+    price = "{:.0f}".format(qprice) 
+
+    context = {'movie':movie, 'price':price}
+    return render(request, 'payx.html', context)
 
 def movies(request):
     movies = Movie.objects.filter(status='Released') 

@@ -1,0 +1,183 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+	<!-- Font -->
+	<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600%7CUbuntu:300,400,500,700" rel="stylesheet">
+
+	<!-- CSS -->
+	<link rel="stylesheet" href="{% static 'css/bootstrap-reboot.min.css' %}">
+	<link rel="stylesheet" href="{% static 'css/bootstrap-grid.min.css' %}">
+	<link rel="stylesheet" href="{% static 'css/owl.carousel.min.css' %}">
+	<link rel="stylesheet" href="{% static 'css/jquery.mCustomScrollbar.min.css' %}">
+	<link rel="stylesheet" href="{% static 'css/nouislider.min.css' %}">
+	<link rel="stylesheet" href="{% static 'css/ionicons.min.css' %}">
+	<link rel="stylesheet" href="{% static 'css/plyr.css' %}">
+	<link rel="stylesheet" href="{% static 'css/photoswipe.css' %}">
+	<link rel="stylesheet" href="{% static 'css/default-skin.css' %}">
+	<link rel="stylesheet" href="{% static 'css/main.css' %}">
+
+	<!-- Favicons -->
+	
+	
+
+	<meta name="description" content="">
+	<meta name="keywords" content="">
+	<meta name="author" content="Dmitry Volkov">
+	<title>HDMOVIEHUT – Free Movies, TV Shows</title>
+
+</head>
+<body class="body">
+	
+	<!-- header -->
+	<header class="header">
+		<div class="header__wrap">
+			<div class="container">
+				<div class="row">
+					<div class="col-12">
+						<div class="header__content">
+							<!-- header logo -->
+							<a href="{% url 'home' %}" class="header__logo">
+								<img src="{% static 'img/logo.svg' %}" alt="">
+							</a>
+							<!-- end header logo -->
+
+							<!-- header nav -->
+							
+							<!-- end header nav -->
+
+							<!-- header auth -->
+							<div class="header__auth">
+								<form action="{% url 'search' %}" method="get">
+								<div class="header__search-content">
+								<input type="text" name="searched" placeholder="Search">
+								</div>
+								<!-- <button class="header__search-btn" type="button">
+									<i class="icon ion-ios-search"></i>
+								</button> -->
+
+							</form>
+							</div>
+							
+							<!-- end header auth -->
+
+							<!-- header menu btn -->
+							
+							<!-- end header menu btn -->
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- header search -->
+		<form action="#" class="header__search">
+			<div class="container">
+				<div class="row">
+					<div class="col-12">
+						<div class="header__search-content">
+							<input type="text" placeholder="Search for a movie, TV Series that you are looking for">
+
+							<button type="button">search</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</form>
+		<!-- end header search -->
+	</header>
+	<!-- end header -->
+    <section class="content">
+		<div class="content__head">
+			<div class="container">
+				<div class="row">
+					<div class="col-12">
+						<!-- content title -->
+						<h2 class="content__title">Discover</h2>
+
+		                <div class="container">
+			        <div class="row">
+			        	<div class="col-12 col-lg-8 col-xl-8">
+			        		<!-- content tabs -->
+			        		<h5> </h5>
+                            <div class="tab-content" id="myTabContent">
+			        			<div class="tab-pane  show active" id="tab-1" role="tabpanel" aria-labelledby="1-tab">
+			        				<div class="col-12">
+			        					<div class="reviews">
+			        						<ul class="reviews__list">
+                                            <br>
+                                            <br>
+                                            <br>
+                                            
+			        							<li class="reviews__item">
+			        								<div class="reviews__autor">
+			        									<h1 class="reviews__name">Pay to download <strong>{{movie.title}}</strong></h1>
+			        									
+			        								</div>
+			        								
+			        							</li>
+                                            
+                                            
+			        						</ul>
+                            <form action="https://newwebpay.interswitchng.com/collections/w/pay" method="POST" enctype="multipart/form-data">
+                                {% csrf_token %}
+
+
+                                <input type="text" class="form__input" name="customer[name]" placeholder="Name">
+                                <input type="text" class="form__input" name="customer[email]" placeholder="Email">
+                                    <!-- <input type="text" class="form__input" name="author" placeholder="Name">
+                                    <input type="text" class="form__input" name="author" placeholder="Name"> -->
+                                    
+                                    
+                                <input type="hidden" name='merchant_code' value='MX80958' />
+                                <input type="hidden" name='pay_item_id' value='Default_Payable_MX80958' />
+                                <input type="hidden" name='site_redirect_url' value='https://twitter.com/ftmezard' /> 
+                                <input type="hidden" name='txn_ref' value='0094959694059' />
+                                <input type="hidden" name='amount' value='{{price}}'/>
+                                <input type="hidden" name='currency' value='566' />
+                                  <button type="submit" value='Make Payment' class="form__btn">Proceed</button>
+			        						</form>
+			        					</div>
+			        				</div>
+			        			</div>
+                            
+                            
+                            
+                            
+			        		</div>
+			        		<!-- end content tabs -->
+			        	</div>
+                    
+			        	<!-- sidebar -->
+                    
+			        	<!-- end sidebar -->
+			        </div>
+		                </div>
+	</section>
+	<!-- end content -->
+
+	<!-- footer -->
+	<!-- footer -->
+	
+	<!-- end footer -->
+
+	<!-- JS -->
+	<script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
+	<script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+	<script src="{% static 'js/owl.carousel.min.js' %}"></script>
+	<script src="{% static 'js/jquery.mousewheel.min.js' %}"></script>
+	<script src="{% static 'js/jquery.mCustomScrollbar.min.js' %}"></script>
+	<script src="{% static 'js/wNumb.js' %}"></script>
+	<script src="{% static 'js/nouislider.min.js' %}"></script>
+	<script src="{% static 'js/plyr.min.js' %}"></script>
+	<script src="{% static 'js/jquery.morelines.min.js' %}"></script>
+	<script src="{% static 'js/photoswipe.min.js' %}"></script>
+	<script src="{% static 'js/photoswipe-ui-default.min.js' %}"></script>
+	<script src="{% static 'js/main.js' %}"></script>
+</body>
+
+</html>

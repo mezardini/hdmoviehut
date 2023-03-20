@@ -8,8 +8,8 @@ urlpatterns = [
     path('movies/<str:genre>/', views.genre, name="genre"),
     path('movies/results', views.movie_filter, name="movieFilter"),
     path('movie/<str:pk>/', views.movie, name="movie"),
-    path('pay', views.pay, name='payment'),
-    path('search-result', views.search, name="search"),
+    path('movie/<str:pk>/pay/', views.payment, name='payment'),
+    path('search-result/', views.search, name="search"),
 ]
 
 if settings.DEBUG:
